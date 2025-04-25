@@ -3,10 +3,10 @@
   new_window: false
   highlight: false
 - name: Our Story
-  link: /about/
+  link: /mkstore/about/
   new_window: false
   highlight: false
 - name: Contact
-  link: /contact/
+  link: /mkstore/contact/
   new_window: false
   highlight: false
