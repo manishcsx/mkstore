@@ -1,12 +1,12 @@
 - name: Products
-  link: /mkstore/
+  link: /
   new_window: false
   highlight: false
 - name: Our Story
-  link: /mkstore/about/
+  link: /about/
   new_window: false
   highlight: false
 - name: Contact
-  link: /mkstore/contact/
+  link: /contact/
   new_window: false
   highlight: false
