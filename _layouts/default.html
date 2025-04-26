@@ -34,6 +34,43 @@
 			</div>
 		{% endif %}
 	</head>
+
+	
+	<script>
+		const paymentApiUrl = 'https://payment-api-tester.com/payment-simulate'; // Replace with your actual API URL
+	  
+		document.addEventListener('snipcart.ready', function () {
+		  const snipcartButton = document.querySelector('.snipcart-add-item');
+		  
+		  if (snipcartButton) {
+			snipcartButton.addEventListener('click', function () {
+			  simulatePayment();
+			});
+		  }
+		});
+	  
+		function simulatePayment() {
+		  fetch(paymentApiUrl)
+			.then(response => {
+			  if (!response.ok) {
+				throw new Error('API request failed');
+			  }
+			  return response.json();
+			})
+			.then(data => {
+			  if (data.status === 'success') {
+				window.location.href = '/api/payment-success'; // Your success page
+			  } else {
+				window.location.href = '/api/payment-failure'; // Your failure page
+			  }
+			})
+			.catch(error => {
+			  console.error('Error:', error);
+			  window.location.href = '/api/payment-failure';
+			});
+		}
+	  </script>
+	  
 	<body>
 		<header>
 			<div class="container">
