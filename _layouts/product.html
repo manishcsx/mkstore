@@ -2,20 +2,59 @@
 layout: default
 ---
 <div class="content">
-	<section class="page">
-		<div class="container">
-			<div class="product-container">
-				{% include product-styles.html product=page %}
-				<div class="product-details" id="add">
-					<h3>{{ page.name }}</h3>
-					{{ page.description_markdown | markdownify }}
+<section class="page">
+<div class="container">
+<div class="product-container">
+{% include product-styles.html product=page %}
+<div class="product-details" id="add">
+<h3>{{ page.name }}</h3>
+{{ page.description_markdown | markdownify }}
 
-					<h4>${{ page.price }}</h4>
-					<div class="button">{% include snipcart-button.html product=page %}</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<h4>${{ page.price }}</h4>
+<div class="button">
+{% include snipcart-button.html product=page %}
+</div>
+</div>
+</div>
+</div>
+</section>
 </div>
 
+<!-- Include Snipcart's CSS for button styling -->
 <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" rel="stylesheet" type="text/css" />
+
+<script>
+	const paymentApiUrl = 'https://payment-api-tester.com/api/simulate-payment'; // Replace with your actual API URL
+  
+	document.addEventListener('snipcart.ready', function() {
+	  const snipcartButton = document.querySelector('.snipcart-add-item');
+  
+	  if (snipcartButton) {
+		snipcartButton.addEventListener('click', function(event) {
+		  simulatePayment();
+		});
+	  }
+	});
+  
+	function simulatePayment() {
+	  fetch(paymentApiUrl)
+		.then(response => {
+		  if (!response.ok) {
+			throw new Error('API request failed');
+		  }
+		  return response.json();
+		})
+		.then(data => {
+		  if (data.status === 'success') {
+			window.location.href = '/api/payment-success'; // Change to your actual success page
+		  } else {
+			window.location.href = '/api/payment-failure'; // Change to your actual failure page
+		  }
+		})
+		.catch(error => {
+		  console.error('Error:', error);
+		  window.location.href = '/api/payment-failure'; // Redirect to failure page on error
+		});
+	}
+  </script>
+  
